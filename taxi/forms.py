@@ -1,6 +1,5 @@
-import re
-
 from django import forms
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
@@ -33,7 +32,7 @@ class DriverCreationForm(UserCreationForm):
     )
 
     class Meta(UserCreationForm.Meta):
-        model = Driver
+        model = get_user_model()          # ← was: model = Driver
         fields = UserCreationForm.Meta.fields + (
             "first_name",
             "last_name",
@@ -67,7 +66,7 @@ class DriverLicenseUpdateForm(forms.ModelForm):
     )
 
     class Meta:
-        model = Driver
+        model = get_user_model()
         fields = ("license_number",)
 
     def __init__(self, *args, **kwargs):
